@@ -13,7 +13,14 @@
 
 import { mkdirSync, writeFileSync } from "node:fs";
 
+// The entry word, named so the choice reads clearly.
 const WORD = "Robot";
+
+// Guard the gate before writing: exactly one word, 1-30 characters,
+// no whitespace. A grandma sends one word, never a sentence.
+if (!/^[^\s]{1,30}$/.test(WORD)) {
+  throw new Error("entry must be exactly one word of 1-30 characters");
+}
 
 mkdirSync("/output", { recursive: true });
 writeFileSync("/output/entry.txt", WORD, "utf8");
